@@ -167,7 +167,7 @@
                 if (event.key === "Enter") {
                     const inputText = inputBox.value.trim().toLowerCase();
                     if (links[inputText]) {
-                        window.open(links[inputText], "_blank");
+                        window.open(links[inputText], "_self");
                     } else {
                         window.open(`https://search.inetol.net/search?q=${encodeURIComponent(inputText)}`, "_blank");
                     }
@@ -180,7 +180,7 @@
                 item.addEventListener("click", function () {
                     const text = item.innerText.toLowerCase();
                     if (links[text]) {
-                        window.open(links[text], "_blank");
+                        window.open(links[text], "_self");
                     }
                 });
             });
@@ -238,3 +238,4 @@
     </div>
 </body>
 </html>
+
