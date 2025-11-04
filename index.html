@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal</title>
+    <style>
+       body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url('https://raw.githubusercontent.com/BRSkings/TerminalStart/refs/heads/main/nice%20ONe.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: "Fira Code", monospace;
+}
+
+        .rounded-box {
+            width: 600px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.16);
+            border-radius: 10px;
+            backdrop-filter: blur(16px);
+            box-shadow: 
+                0 0 5px rgba(0, 0, 0, 0.145),
+                0 0 25px rgba(0, 0, 0, 0.145),
+                0 0 50px rgba(0, 0, 0, 0.145),
+                0 0 200px rgba(0, 0, 0, 0.145);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding-bottom: 60px;
+        }
+
+        .subtext {
+            cursor: pointer;
+            transition: opacity 0.2s, color 0.2s;
+            color: white;
+        }
+
+        .subtext:hover {
+            color: #90EE90;
+        }
+
+        .subtext.dimmed {
+            opacity: 0.3;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            font-size: 14px;
+            font-family: "Fira Code", monospace;
+            letter-spacing: 2px;
+        }
+
+        .prompt {
+            margin-right: 5px;
+            letter-spacing: 2px;
+        }
+
+        .prompt .user {
+            color: #B62ED8;
+        }
+
+        .prompt .at {
+            color: #97989D;
+        }
+
+        .prompt .browser {
+            color: #AFF8B4;
+        }
+
+        .prompt .arrow {
+            color: #B62ED8;
+        }
+
+        .text-area {
+            flex-grow: 1;
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 14px;
+            font-family: "Fira Code", monospace;
+            outline: none;
+            caret-color: #B62ED8;
+            letter-spacing: 2px;
+        }
+
+        .category.general {
+            color: #2ED8A2;
+        }
+
+        .category.gaming {
+            color: #D1AFF8;
+        }
+
+        .category.dev {
+            color: #62E0E2;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const inputBox = document.querySelector(".text-area");
+            const clickableItems = document.querySelectorAll(".subtext");
+
+            const links = {
+                "amusic": "https://music.amazon.com",
+                "yt": "https://www.youtube.com",
+                "youtube": "https://www.youtube.com",
+                "sirius": "https://www.siriusxm.com/player/login",
+                "pobol": "https://www.bbc.co.uk/programmes/p001pp0l/episodes/player",
+                "logeion": "https://logeion.uchicago.edu/",
+                "geiriadur": "https://welsh-dictionary.ac.uk/gpc/gpc.html",
+                "gaelic": "https://learngaelic.scot/dictionary/",
+                "dwelly": "https://www.faclair.com/",
+                "hanswehr": "https://hanswehr.app/",
+                "cymru": "https://www.bbc.com/cymru",
+                "alba": "https://www.bbc.com/alba",
+                "guardian": "https://www.theguardian.com/uk",
+                "speigel": "https://www.spiegel.de/",
+                "reddit": "https://www.reddit.com/",
+                "gmail": "https://mail.google.com/mail/u/0/#inbox", 
+                "drive": "https://drive.google.com/drive/home", 
+                "google docs": "https://www.libreoffice.org/", 
+                "sheets": "https://docs.google.com/spreadsheets/u/0/", 
+                "cal": "https://calendar.google.com/calendar/u/0/r", 
+                "email": "https://outlook.office.com/mail/", 
+                "uhi": "https://brightspace.uhi.ac.uk/d2l/home", 
+                "workday": "https://myapps.microsoft.com/",
+                "schedule": "https://registrar.uark.edu/registration/schedule-of-classes.php",
+                "library" : "https://libraries.uark.edu/"
+
+            };
+
+            function filterItems(searchText) {
+                clickableItems.forEach(item => {
+                    const itemText = item.innerText.toLowerCase();
+                    if (itemText.includes(searchText.toLowerCase())) {
+                        item.classList.remove("dimmed");
+                    } else {
+                        item.classList.add("dimmed");
+                    }
+                });
+            }
+
+            inputBox.addEventListener("input", function () {
+                const inputText = inputBox.value.trim();
+                filterItems(inputText);
+            });
+
+            inputBox.addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    const inputText = inputBox.value.trim().toLowerCase();
+                    if (links[inputText]) {
+                        window.open(links[inputText], "_blank");
+                    } else {
+                        window.open(`https://search.inetol.net/search?q=${encodeURIComponent(inputText)}`, "_blank");
+                    }
+                    inputBox.value = "";
+                    filterItems("");
+                }
+            });
+
+            clickableItems.forEach(item => {
+                item.addEventListener("click", function () {
+                    const text = item.innerText.toLowerCase();
+                    if (links[text]) {
+                        window.open(links[text], "_blank");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="rounded-box">
+        <div class="content">
+            <div class="column">
+                <div class="category general">Media</div>
+                <div class="subtext">youtube</div>
+                <div class="subtext">amusic</div>
+                <div class="subtext">sirius</div>
+                <div class="subtext">pobol</div>
+            </div>
+            <div class="column">
+                <div class="category gaming">Google</div>
+                <div class="subtext">cal</div>
+                <div class="subtext">gmail</div>
+                <div class="subtext">sheets</div>
+                <div class="subtext">drive</div>
+            </div>
+            <div class="column">
+                <div class="category dev">Dictionaries</div>
+                <div class="subtext">logeion</div>
+                <div class="subtext">geiriadur</div>
+                <div class="subtext">gaelic</div>
+                <div class="subtext">dwelly</div>
+                <div class="subtext">hanswehr</div>
+            </div>
+            <div class="column">
+                <div class="category dev">News</div>
+                <div class="subtext">cymru</div>
+                <div class="subtext">alba</div>
+                <div class="subtext">guardian</div>
+                <div class="subtext">spiegel</div>
+                <div class="subtext">reddit</div>
+            </div>
+            <div class="column">
+                <div class="category dev">Work</div>
+                <div class="subtext">email</div>
+                <div class="subtext">uhi</div>
+                <div class="subtext">workday</div>
+                <div class="subtext">schedule</div>
+                <div class="subtext">library</div>
+            </div>
+        </div>
+        <div class="input-container">
+            <span class="prompt">
+                <span class="user">josh</span><span class="at">@</span><span class="browser">firefox</span> <span class="arrow">❯</span>
+            </span>
+            <input type="text" class="text-area" placeholder="command..." autofocus />
+        </div>
+    </div>
+</body>
+</html>
