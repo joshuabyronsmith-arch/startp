@@ -173,7 +173,7 @@
                     if (links[inputText]) {
                         window.open(links[inputText], "_self");
                     } else {
-                        window.open(`https://www.google.com/search?q=${encodeURIComponent(inputText)}`, "_blank");
+                        window.open(`https://www.google.com/search?q=${encodeURIComponent(inputText)}`, "_self");
                     }
                     inputBox.value = "";
                     filterItems("");
@@ -250,6 +250,7 @@
     </div>
 </body>
 </html>
+
 
 
 
